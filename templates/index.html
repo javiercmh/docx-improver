@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOCX Improver</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>DOCX Improver</h1>
+            <p>Upload a Word document to improve its content using Gemini AI</p>
+        </header>
+
+        <main>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for message in messages %}
+                            <div class="flash-message">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <div class="upload-section">
+                <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+                    <div class="file-input-container">
+                        <label for="file-upload" class="custom-file-upload">
+                            <span>Choose File</span>
+                        </label>
+                        <input id="file-upload" type="file" name="file" accept=".docx" required>
+                        <span id="file-name">No file chosen</span>
+                    </div>
+                    <button type="submit" class="upload-button">Upload & Improve</button>
+                </form>
+            </div>
+
+            <div class="features">
+                <div class="feature">
+                    <h3>AI-Powered Improvement</h3>
+                    <p>Uses Gemini AI to analyze and enhance your document's content</p>
+                </div>
+                <div class="feature">
+                    <h3>Track Changes</h3>
+                    <p>All improvements are shown with track changes enabled for easy review</p>
+                </div>
+                <div class="feature">
+                    <h3>Quick Processing</h3>
+                    <p>Fast and efficient document processing with immediate download</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 DOCX Improver</p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('file-upload').addEventListener('change', function() {
+            const fileName = this.files[0] ? this.files[0].name : 'No file chosen';
+            document.getElementById('file-name').textContent = fileName;
+        });
+    </script>
+</body>
+</html>

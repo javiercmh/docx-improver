@@ -1,0 +1,231 @@
+/* Global Styles */
+:root {
+    --primary-color: #4a6baf;
+    --secondary-color: #6c8cd5;
+    --accent-color: #2c3e50;
+    --background-color: #f5f7fa;
+    --text-color: #333;
+    --light-gray: #e0e0e0;
+    --success-color: #4caf50;
+    --error-color: #f44336;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Header Styles */
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+}
+
+header p {
+    color: var(--accent-color);
+    font-size: 1.1rem;
+}
+
+/* Main Content Styles */
+main {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Flash Messages */
+.flash-messages {
+    margin-bottom: 1.5rem;
+}
+
+.flash-message {
+    padding: 0.75rem 1rem;
+    background-color: var(--error-color);
+    color: white;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+/* Upload Section */
+.upload-section {
+    text-align: center;
+    padding: 2rem;
+    border: 2px dashed var(--light-gray);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.file-input-container {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 0.5rem;
+}
+
+.custom-file-upload:hover {
+    background-color: var(--primary-color);
+}
+
+#file-name {
+    font-size: 0.9rem;
+    color: var(--accent-color);
+}
+
+.upload-button {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.upload-button:hover {
+    background-color: var(--accent-color);
+}
+
+/* Features Section */
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.feature {
+    padding: 1.5rem;
+    background-color: var(--background-color);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.feature h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+}
+
+/* Processing Page Styles */
+.processing-section {
+    text-align: center;
+    padding: 2rem;
+}
+
+.processing-section h2 {
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.progress-container {
+    width: 100%;
+    height: 20px;
+    background-color: var(--light-gray);
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background-color: var(--primary-color);
+    transition: width 0.5s ease;
+}
+
+#status-message {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.download-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--success-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-right: 1rem;
+    transition: background-color 0.3s;
+}
+
+.download-button:hover {
+    background-color: #388e3c;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--secondary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: var(--primary-color);
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    color: var(--accent-color);
+    font-size: 0.9rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    main {
+        padding: 1.5rem;
+    }
+    
+    .features {
+        grid-template-columns: 1fr;
+    }
+}
