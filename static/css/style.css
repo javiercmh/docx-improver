@@ -167,7 +167,7 @@ input[type="file"] {
     height: 100%;
     width: 0;
     background-color: var(--primary-color);
-    transition: width 0.5s ease;
+    transition: width 3s ease-out;
 }
 
 #status-message {

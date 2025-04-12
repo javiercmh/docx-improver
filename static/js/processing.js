@@ -4,40 +4,50 @@ document.addEventListener('DOMContentLoaded', function() {
     const statusMessage = document.getElementById('status-message');
     const downloadSection = document.getElementById('download-section');
     const downloadLink = document.getElementById('download-link');
-    
+
     // Get the filename from the URL
     const pathParts = window.location.pathname.split('/');
     const filename = pathParts[pathParts.length - 1];
-    
-    let progress = 0;
-    const interval = setInterval(function() {
-        progress += 5;
-        progressBar.style.width = progress + '%';
-        
-        if (progress === 30) {
-            statusMessage.textContent = "Improving text with Gemini AI...";
-        } else if (progress === 60) {
-            statusMessage.textContent = "Applying track changes...";
-        } else if (progress === 90) {
-            statusMessage.textContent = "Finalizing document...";
-        } else if (progress >= 100) {
-            clearInterval(interval);
-            
-            // Call the API to process the file
-            fetch(`/api/process/${filename}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        statusMessage.textContent = `Processing complete! Made ${data.improved_count} changes in ${data.paragraphs_count} paragraphs.`;
-                        downloadLink.href = data.download_url;
-                        downloadSection.classList.remove('hidden');
-                    } else {
-                        statusMessage.textContent = `Error: ${data.message}`;
-                    }
-                })
-                .catch(error => {
-                    statusMessage.textContent = `Error: ${error.message}`;
-                });
-        }
-    }, 500);
+
+    // --- Skip Timed Progress ---
+    statusMessage.textContent = "Processing document, please wait...";
+    // Optionally set the bar to an indeterminate state or a low percentage
+    progressBar.style.width = '97%'; // Or use Bootstrap's progress-bar-animated class if using Bootstrap
+    progressBar.classList.add('progress-bar-striped', 'progress-bar-animated'); // Example for Bootstrap
+    // --- End Skip Timed Progress ---
+
+
+    // Call the API immediately
+    fetch(`/api/process/${filename}`)
+        .then(response => {
+            if (!response.ok) {
+                // Handle HTTP errors like 404, 500
+                throw new Error(`Server responded with status: ${response.status}`);
+            }
+            return response.json();
+         })
+        .then(data => {
+            progressBar.classList.remove('progress-bar-striped', 'progress-bar-animated'); // Stop animation
+
+            if (data.status === 'success') {
+                statusMessage.textContent = `Processing complete! Made ${data.improved_count} changes in ${data.paragraphs_count} paragraphs.`;
+                downloadLink.href = data.download_url;
+                downloadSection.classList.remove('hidden');
+                progressBar.style.width = '100%'; // Show completion
+                progressBar.classList.add('bg-success'); // Optional: make bar green
+            } else {
+                // Handle errors reported in the JSON payload
+                statusMessage.textContent = `Error: ${data.message || 'Unknown error occurred.'}`;
+                progressBar.style.width = '100%'; // Show bar filled on error too
+                progressBar.classList.add('bg-danger'); // Make bar red on error
+            }
+        })
+        .catch(error => {
+            progressBar.classList.remove('progress-bar-striped', 'progress-bar-animated'); // Stop animation
+            // Handle network errors or errors thrown from .then()
+            console.error("API call failed:", error); // Log the actual error
+            statusMessage.textContent = `Error: ${error.message || 'Could not connect to server.'}`;
+            progressBar.style.width = '100%'; // Show bar filled on error too
+            progressBar.classList.add('bg-danger'); // Make bar red on error
+        });
 });
