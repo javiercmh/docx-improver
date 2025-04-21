@@ -16,7 +16,7 @@ def get_gemini_model():
     """Get the Gemini model for text generation"""
     return genai.GenerativeModel('gemini-2.0-flash')
 
-def analyze_and_improve_text(text):
+def improve_text(text):
     """
     Analyze and improve text using Gemini API.
     
@@ -28,19 +28,20 @@ def analyze_and_improve_text(text):
     """
     model = get_gemini_model()
     
-    prompt = f"""Please refine the following text for clarity, conciseness, and professionalism, ensuring a business-oriented style suitable for either United States English or Chilean Spanish, depending on the language of the source document. Ensure accurate grammar and spelling, improved word choice, and enhanced flow, while preserving the original meaning and avoiding the addition of new information.
+    prompt = f"""
+        Please revise the following text to improve clarity, conciseness, and professionalism, while maintaining the original meaning. 
+        Ensure correct grammar, appropriate word choice, and smooth flow. Do not add new information.
 
-When refining Spanish text, **prioritize formal vocabulary and phrasing commonly understood and used in a professional context in Chile.** Specifically, replace words that are common in other Spanish-speaking regions but less so or not used in Chile with their formal Chilean equivalents (e.g., replace "aguacate" with "palta," "coche" with "auto," "caña" [for small beer] with "cerveza pequeña," "guay" with "excelente" or "positivo," "piso" with "departamento," etc.). Avoid informal or slang terms.
+        For Spanish texts, use formal vocabulary and phrasing typical of Chilean Spanish. 
+        Avoid slang or informal expressions, but strictly preserve Chilean Spanish localisms and standard vocabulary. 
+        Do not replace words that are common and accepted in formal Chilean Spanish with terms from other Spanish-speaking regions. 
+        For example, retain words such as 'auto', 'papa', 'maní', and 'palta', 
+        as these are standard in Chile and should not be changed to 'carro', 'patata', 'cacahuete', or 'aguacate' respectively.
 
-Similarly, when refining English text, prioritize formal vocabulary and phrasing common in the United States over other regional variations, avoiding slang or overly casual language.
-
-Return only one revised text in the same language as the original, clearly indicating all changes made using the following convention:
-
-* **Typographical errors:** Enclose the incorrect word in double tildes (~~) and immediately follow it with the corrected word in bold (**). For example: ~~imajinan~~**imaginan** or ~~teh~~**the**.
-* **Word choice and conciseness improvements (including regional vocabulary replacements):** Enclose the original word(s) in double tildes (~~) and immediately follow it with the improved word(s) in bold (**). For example: ~~es la monda~~**es atractiva** or ~~aguacates~~**paltas** or ~~uses its legs to~~**jumps**.
-* **Grammatical corrections (excluding typos and word choice):** Indicate the change directly within the word if possible (e.g., ofrese**r**, jump**s**). If the change involves adding or removing words for grammatical correctness, use the double tilde and bold convention as described above.
-
-Text to improve: <input>{text}</input>"""
+        Return only the revised text in the same language as the original:
+        --------
+        {text}
+    """
 
     try:
         response = model.generate_content(prompt)
