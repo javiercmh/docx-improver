@@ -27,14 +27,12 @@ def text_to_docx_bytes(text):
 
 def create_diff_docx(original_path, modified_bytes, output_path):
     docx_comparer = XmlPowerToolsEngine()
-    print("running red lines")
     diff_docx_obj = docx_comparer.run_redline(
         author_tag='Gemini', 
         original=original_path, # path or bytes
         modified=modified_bytes) # path or bytes
     diff_docx_bytes = diff_docx_obj[0]
     revision_count = diff_docx_obj[1].strip().split(" ")[-1]
-    print("made %s revisions".format(revision_count))
     with open(output_path, 'wb') as f:
         f.write(diff_docx_bytes)
     return revision_count

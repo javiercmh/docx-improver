@@ -29,8 +29,10 @@ def improve_text(text):
     model = get_gemini_model()
     
     prompt = f"""
-        Please revise the following text to improve clarity, conciseness, and professionalism, while maintaining the original meaning. 
-        Ensure correct grammar, appropriate word choice, and smooth flow. Do not add new information.
+        You will receive a text at the end of this prompt.
+
+        Revise the text to improve clarity, conciseness, professionalism and scientific rigor, 
+        while maintaining the original meaning. Ensure correct grammar, appropriate word choice, and smooth flow. Do not add new information.
 
         For Spanish texts, use formal vocabulary and phrasing typical of Chilean Spanish. 
         Avoid slang or informal expressions, but strictly preserve Chilean Spanish localisms and standard vocabulary. 
@@ -38,10 +40,16 @@ def improve_text(text):
         For example, retain words such as 'auto', 'papa', 'maní', and 'palta', 
         as these are standard in Chile and should not be changed to 'carro', 'patata', 'cacahuete', or 'aguacate' respectively.
 
-        Return only the revised text in the same language as the original:
+        For English texts, prefer US English.
+        For German texts, prefer German from Germany.
+
+        The intended output is the revised text in the same language as the original. 
+        If the text includes some foreign words, leave them there, as it was probably intended that way.
+
+        The text will be pasted below the hyphens:
         --------
         {text}
-    """
+        """
 
     try:
         response = model.generate_content(prompt)
