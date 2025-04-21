@@ -1,7 +1,10 @@
 __pycache__
 .venv
-processed/*
+output/*
 uploads/*
+examples/*
 .env
 
 !*.gitkeep
+!examples/*english.docx
+!examples/*spanish.docx

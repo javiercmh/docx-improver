@@ -26,4 +26,6 @@ A simple Flask web app that improves `.docx` documents using Google's Gemini API
    pip install -r requirements.txt
    ```
 
-3. **Create .env file with Gemini API key** (copy .env.example)
+3. Install .NET version 8.0. Read [here](https://learn.microsoft.com/en-us/dotnet/core/install/).
+
+4. **Create .env file with Gemini API key** (copy .env.example)

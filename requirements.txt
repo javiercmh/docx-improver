@@ -3,3 +3,4 @@ python-dotenv
 google-generativeai
 python-docx
 werkzeug
+git+https://github.com/JSv4/Python-Redlines

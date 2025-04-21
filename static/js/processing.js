@@ -9,15 +9,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const pathParts = window.location.pathname.split('/');
     const filename = pathParts[pathParts.length - 1];
 
-    // --- Skip Timed Progress ---
     statusMessage.textContent = "Processing document, please wait...";
-    // Optionally set the bar to an indeterminate state or a low percentage
     progressBar.style.width = '97%'; // Or use Bootstrap's progress-bar-animated class if using Bootstrap
     progressBar.classList.add('progress-bar-striped', 'progress-bar-animated'); // Example for Bootstrap
-    // --- End Skip Timed Progress ---
 
-
-    // Call the API immediately
     fetch(`/api/process/${filename}`)
         .then(response => {
             if (!response.ok) {
@@ -30,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             progressBar.classList.remove('progress-bar-striped', 'progress-bar-animated'); // Stop animation
 
             if (data.status === 'success') {
-                statusMessage.textContent = `Processing complete! Made ${data.improved_count} changes in ${data.paragraphs_count} paragraphs.`;
+                statusMessage.textContent = `Processing complete! Made ${data.revision_count} changes.`;
                 downloadLink.href = data.download_url;
                 downloadSection.classList.remove('hidden');
                 progressBar.style.width = '100%'; // Show completion
