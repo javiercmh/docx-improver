@@ -154,22 +154,6 @@ input[type="file"] {
     color: var(--primary-color);
 }
 
-.progress-container {
-    width: 100%;
-    height: 20px;
-    background-color: var(--light-gray);
-    border-radius: 10px;
-    margin-bottom: 1rem;
-    overflow: hidden;
-}
-
-.progress-bar {
-    height: 100%;
-    width: 0;
-    background-color: var(--primary-color);
-    transition: width 3s ease-out;
-}
-
 #status-message {
     margin-bottom: 1.5rem;
     font-size: 1.1rem;
@@ -177,7 +161,7 @@ input[type="file"] {
 
 .hidden {
     display: none;
-}
+} /* Keep .hidden as it's used for the download section */
 
 .download-button {
     display: inline-block;

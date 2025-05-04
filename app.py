@@ -2,7 +2,6 @@ import os
 import uuid
 import shutil
 import logging
-import google.generativeai as genai
 from dotenv import load_dotenv
 from fastapi import FastAPI, Request, File, UploadFile, HTTPException, Form
 from fastapi.responses import HTMLResponse, RedirectResponse, FileResponse, JSONResponse

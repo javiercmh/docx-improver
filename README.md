@@ -1,15 +1,14 @@
 # 📄 FeedbackLM
 
-A simple Flask web app that improves `.docx` documents using Google's Gemini API.
+A simple web app that improves `.docx` documents using Google's Gemini API.
 
 ---
 
 ## 🚀 Features
 
 - Upload `.docx` files.
-- Improve document content using Gemini.
+- Improve document content.
 - Download an improved `.docx` with highlighted changes.
-- Simple web UI.
 
 ---
 

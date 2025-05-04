@@ -3,25 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Processing Document - DOCX Improver</title>
+    <title>Processing Document - FeedbackLM</title>
     <!-- Assuming static files are mounted at /static -->
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>DOCX Improver</h1>
-            <p>Processing your document with Gemini AI</p>
+            <h1>FeedbackLM (beta)</h1>
         </header>
 
         <main>
             <div class="processing-section">
                 <h2>Processing "{{ original_filename }}"</h2>
-                <div class="progress-container">
-                    <div id="progress-bar" class="progress-bar"></div>
-                </div>
-                <p id="status-message">Analyzing document content...</p>
-                <div id="download-section" class="hidden">
+                <!-- Status message updated by JavaScript -->
+                <p id="status-message">Initializing...</p>
+                <div id="download-section" class="hidden"> <!-- Download section shown by JS on success -->
                     <p>Your improved document is ready!</p>
                     <!-- The href will be set dynamically by JavaScript using the API response -->
                     <a id="download-link" href="#" class="download-button">Download Improved Document</a>
