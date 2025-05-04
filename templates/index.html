@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DOCX Improver</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Assuming static files are mounted at /static -->
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
     <div class="container">
@@ -14,18 +15,15 @@
         </header>
 
         <main>
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <div class="flash-messages">
-                        {% for message in messages %}
-                            <div class="flash-message">{{ message }}</div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            {% endwith %}
+            <!-- Display message passed from FastAPI route -->
+            {% if message %}
+              <div class="flash-messages">
+                  <div class="flash-message">{{ message }}</div>
+              </div>
+            {% endif %}
 
             <div class="upload-section">
-                <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ request.url_for('upload_file') }}" method="post" enctype="multipart/form-data">
                     <div class="file-input-container">
                         <label for="file-upload" class="custom-file-upload">
                             <span>Choose File</span>

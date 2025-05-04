@@ -5,15 +5,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const downloadSection = document.getElementById('download-section');
     const downloadLink = document.getElementById('download-link');
 
-    // Get the filename from the URL
-    const pathParts = window.location.pathname.split('/');
-    const filename = pathParts[pathParts.length - 1];
-
     statusMessage.textContent = "Processing document, please wait...";
     progressBar.style.width = '97%'; // Or use Bootstrap's progress-bar-animated class if using Bootstrap
     progressBar.classList.add('progress-bar-striped', 'progress-bar-animated'); // Example for Bootstrap
 
-    fetch(`/api/process/${filename}`)
+    // Use the global FILENAME variable injected from the HTML template
+    fetch(`/api/process/${FILENAME}`)
         .then(response => {
             if (!response.ok) {
                 // Handle HTTP errors like 404, 500
@@ -26,10 +23,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (data.status === 'success') {
                 statusMessage.textContent = `Processing complete! Made ${data.revision_count} changes.`;
-                downloadLink.href = data.download_url;
+                downloadLink.href = data.download_url._url;
                 downloadSection.classList.remove('hidden');
                 progressBar.style.width = '100%'; // Show completion
-                progressBar.classList.add('bg-success'); // Optional: make bar green
+                progressBar.classList.add('bg-success');
             } else {
                 // Handle errors reported in the JSON payload
                 statusMessage.textContent = `Error: ${data.message || 'Unknown error occurred.'}`;

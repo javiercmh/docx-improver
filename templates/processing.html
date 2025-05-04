@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Processing Document - DOCX Improver</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Assuming static files are mounted at /static -->
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
     <div class="container">
@@ -22,17 +23,23 @@
                 <p id="status-message">Analyzing document content...</p>
                 <div id="download-section" class="hidden">
                     <p>Your improved document is ready!</p>
-                    <a id="download-link" href="{{ url_for('download_file', filename=filename) }}" class="download-button">Download Improved Document</a>
-                    <a href="{{ url_for('index') }}" class="back-button">Process Another Document</a>
+                    <!-- The href will be set dynamically by JavaScript using the API response -->
+                    <a id="download-link" href="#" class="download-button">Download Improved Document</a>
+                    <!-- Link back to the index page -->
+                    <a href="{{ request.url_for('index') }}" class="back-button">Process Another Document</a>
                 </div>
             </div>
         </main>
 
         <footer>
-            <p>&copy; 2025 DOCX Improver</p>
+            <p>&copy; 2025 FeedbackLM (beta)</p>
         </footer>
     </div>
 
-    <script src="{{ url_for('static', filename='js/processing.js') }}"></script>
+    <!-- Pass filename to JavaScript -->
+    <script>
+        const FILENAME = "{{ filename }}"; // Make filename available to the script
+    </script>
+    <script src="/static/js/processing.js"></script>
 </body>
 </html>

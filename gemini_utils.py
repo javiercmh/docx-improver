@@ -1,20 +1,20 @@
 import os
+import logging
 import google.generativeai as genai
 from dotenv import load_dotenv
+
+logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+logger = logging.getLogger(__name__)
 
 # Load environment variables
 load_dotenv()
 
 # Configure Gemini API
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
-if not GEMINI_API_KEY:
+if GEMINI_API_KEY:
+    genai.configure(api_key=GEMINI_API_KEY)
+else:
     raise ValueError("GEMINI_API_KEY environment variable is not set")
-
-genai.configure(api_key=GEMINI_API_KEY)
-
-def get_gemini_model():
-    """Get the Gemini model for text generation"""
-    return genai.GenerativeModel('gemini-2.0-flash')
 
 def improve_text(text):
     """
@@ -26,8 +26,8 @@ def improve_text(text):
     Returns:
         Improved text
     """
-    model = get_gemini_model()
-    
+    logger.info("Improving text using Gemini API")
+    model = genai.GenerativeModel('gemini-2.0-flash')
     prompt = f"""
         You will receive a text at the end of this prompt.
 
@@ -39,7 +39,6 @@ def improve_text(text):
         Do not replace words that are common and accepted in formal Chilean Spanish with terms from other Spanish-speaking regions. 
         For example, retain words such as 'auto', 'papa', 'maní', and 'palta', 
         as these are standard in Chile and should not be changed to 'carro', 'patata', 'cacahuete', or 'aguacate' respectively.
-
         For English texts, prefer US English.
         For German texts, prefer German from Germany.
 
@@ -59,7 +58,17 @@ def improve_text(text):
         if not improved_text:
             improved_text = text
     except Exception as e:
-        print(f"Error improving text: {e}")
+        logger.error(f"Error improving text: {e}")
         # In case of error, keep the original text
+        improved_text = text
 
     return improved_text
+
+if __name__ == "__main__":
+    # Test the improve_text function with a sample text
+    sample_text = """This is a sampae text not very weill wrotten. I t contain errors and the flow is not good.
+    It would be very nice to fix those problems so that in the end the documentis is more clearer and professionaller.
+"""
+    improved_text = improve_text(sample_text)
+    print("Original Text:", sample_text)
+    print("Improved Text:", improved_text)
